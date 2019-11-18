@@ -1,0 +1,46 @@
+{
+    "name": "sethsandaru/laravel-multilingual",
+    "type": "library",
+    "description": "Laravel Multilingual",
+    "keywords": [
+        "laravel",
+        "multilingual",
+        "multi-language",
+        "library"
+    ],
+    "authors": [
+        {
+            "name": "Phat Tran (Seth Phat)",
+            "email": "phattranminh96@gmail.com",
+            "homepage": "https://sethphat.com",
+            "role": "Sr. Full-Stack Engineer"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^7.1.3",
+        "laravel/framework": "^5.5"
+    },
+    "extra": {
+        "laravel": {
+             "providers": [
+				"SethPhat\\Multilingual\\ServiceProvider"
+			],
+            "alias": {
+                "Multilingual": "\\SethPhat\\Multilingual\\Facade"
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "SethPhat\\Multilingual\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SethPhat\\Multilingual\\Test\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
