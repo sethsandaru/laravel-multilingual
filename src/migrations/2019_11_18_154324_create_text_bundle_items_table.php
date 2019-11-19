@@ -15,6 +15,7 @@ class CreateTextBundleItemsTable extends Migration
     {
         Schema::create('text_bundle_items', function (Blueprint $table) {
             $table->bigIncrements("id");
+            $table->integer('text_bundle_id')->index();
             $table->char("key",50)->unique();
             $table->bigInteger("text_id")->index();
 

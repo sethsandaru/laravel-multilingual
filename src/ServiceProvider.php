@@ -32,7 +32,7 @@ class ServiceProvider extends BaseServiceProvider
     public function register()
     {
         App::bind('multilingual', function() {
-            return new \SethPhat\Multilingual\Facade;
+            return new \SethPhat\Multilingual\Libraries\TextBundleHandler;
         });
 
         $this->mergeConfigFrom(__DIR__.'/configs/multilingual.php', 'multilingual');
