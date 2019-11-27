@@ -13,7 +13,9 @@ class CreateLanguagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('languages', function (Blueprint $table) {
+        $prefix = config('multilingual.table_prefix');
+
+        Schema::create($prefix . 'languages', function (Blueprint $table) {
             $table->char("lang_iso_code", 5)->unique();
             $table->string("name", 50);
 

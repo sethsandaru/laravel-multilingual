@@ -13,4 +13,14 @@ class Language extends Model
     public $incrementing = false;
 
     protected $fillable = ['lang_iso_code', 'name'];
+
+
+    /**
+     * To apply prefix for table
+     * @return string
+     */
+    public function getTable()
+    {
+        return config("multilingual.table_prefix") . $this->table;
+    }
 }

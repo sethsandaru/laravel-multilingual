@@ -8,6 +8,12 @@ return [
     'default_lang' => 'en',
 
     /**
+     * Table prefix
+     * Please keep the underscore at the end of the string
+     */
+    'table_prefix' => 'lml_', //lml => laravel-multilingual =))
+
+    /**
      * You should decided whether you want to use cache or not.
      * If you don't use cache, the library will query every time you get the text
      * If you use cache, you need to publish the text bundle before using the text
