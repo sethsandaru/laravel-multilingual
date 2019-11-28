@@ -21,7 +21,8 @@ class ServiceProvider extends BaseServiceProvider
 
         $this->publishes([
             __DIR__.'/configs/multilingual.php' => config_path('multilingual.php'),
-        ]);
+            __DIR__.'/../assets' => public_path('vendor/multilingual')
+        ], 'multilingual');
     }
 
     /**
