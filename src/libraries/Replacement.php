@@ -1,7 +1,7 @@
 <?php
 
 
-namespace SethPhat\Multilingual\libraries;
+namespace SethPhat\Multilingual\Libraries;
 
 
 use Illuminate\Translation\Translator;

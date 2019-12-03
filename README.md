@@ -18,7 +18,20 @@ Status: **In Development**
 - VueJS (for backend pages)
 
 ## How to use?
-To be updated...
+### Install the package
+```php
+composer require sethsandaru/laravel-multilingual
+```
+### Run Migration and Publish Assets
+```php
+php artisan migrate
+php artisan vendor:publish --tag=multilingual --force
+```
+
+### Custom Configuration
+While you publish the vendor's assets. The configuration file should we published too, name: `config\multilingual.php`
+
+Full description in file for each configuration, check it out.
 
 ## APIs
 To be updated...

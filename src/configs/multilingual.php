@@ -25,7 +25,7 @@ return [
      * Your custom middleware to access the Backend Pages
      * Default: 'auth' => authentication check of Laravel Authentication
      */
-    'custom_middleware' => ['auth'], //
+    'custom_middleware' => [], //
 
     /**
      * The route prefix to access the Backend Pages

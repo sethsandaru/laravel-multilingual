@@ -5,15 +5,10 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">@lang($namespace . "::base.dashboard-title")</h4>
+                    <h4 class="card-title">@lang($namespace . "::language.title")</h4>
                 </div>
                 <div class="card-body">
-                    <p>
-                        @lang($namespace . "::base.dashboard-text")
-                    </p>
-                    <p>
-                        @lang($namespace . "::base.help-text")
-                    </p>
+                    Oh la la - Developing
                 </div>
             </div>
         </div>

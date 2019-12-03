@@ -18,6 +18,7 @@ class ServiceProvider extends BaseServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/migrations');
         $this->loadRoutesFrom(__DIR__ . "/routes.php");
         $this->loadViewsFrom(__DIR__ . "/views", "multilingual");
+        $this->loadTranslationsFrom(__DIR__ . "/translations", "multilingual");
 
         $this->publishes([
             __DIR__.'/configs/multilingual.php' => config_path('multilingual.php'),
