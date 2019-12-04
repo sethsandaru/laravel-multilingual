@@ -1,7 +1,7 @@
 <?php
 
 
-namespace SethPhat\Multilingual\models;
+namespace SethPhat\Multilingual\Models;
 
 
 use Illuminate\Database\Eloquent\Model;

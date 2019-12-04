@@ -8,7 +8,54 @@
                     <h4 class="card-title">@lang($namespace . "::language.title")</h4>
                 </div>
                 <div class="card-body">
-                    Oh la la - Developing
+                    <form action="{{url()->current()}}">
+                        <div class="form-group">
+                            <label>@lang($namespace . "::language.search-by-keyword")</label>
+                            <input type="text" class="form-control" name="keyword" value="{{request()->get('keyword')}}">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary">@lang($namespace . "::language.search")</button>
+                        </div>
+                    </form>
+
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>@lang($namespace . "::language.table-column-code")</th>
+                                <th>@lang($namespace . "::language.table-column-name")</th>
+                                <th>@lang($namespace . "::language.table-column-last-updated")</th>
+                                <th>@lang($namespace . "::language.table-column-actions")</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($languages as $language)
+                                <tr>
+                                    <td>{{$language->lang_iso_code}}</td>
+                                    <td>{{$language->name}}</td>
+                                    <td>{{$language->updated_at}}</td>
+                                    <td>
+                                        <a href="#" >
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        |
+                                        <a href="#">
+                                            <i class="fa fa-trash-o"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="4">
+                                        @lang($namespace . "::language.no-result")
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+
+                    <div class="col-12">
+                        {!! $languages->appends(request()->all())->links() !!}
+                    </div>
                 </div>
             </div>
         </div>
