@@ -16,6 +16,13 @@ return [
     'text-modules' => 'Text Modules',
     'text-module-item' => 'Text Module Items',
 
+	// re-usable text
+	'add' => 'Add',
+	'edit' => 'Edit',
+	'delete' => 'Delete',
+	'cancel' => 'Cancel',
+	'save' => 'Save',
+
     // dashboard texts
     'dashboard-title' => 'Laravel Multilingual Dashboard',
     'dashboard-text' => 'Please choose the menu in the left sidebar to continue. Thank you very much for using Laravel Multilingual by Seth Phat.',

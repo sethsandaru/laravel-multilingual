@@ -23,4 +23,12 @@ class Language extends Model
     {
         return config("multilingual.table_prefix") . $this->table;
     }
+
+	/**
+	 * For validation
+	 * @return string
+	 */
+    public function getPrimaryKey() {
+    	return $this->primaryKey;
+	}
 }

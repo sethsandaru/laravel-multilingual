@@ -5,7 +5,13 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">@lang($namespace . "::language.title")</h4>
+                    <h4 class="card-title">
+                        @lang($namespace . "::language.title")
+
+                        <a href="{{route('lml-language.create')}}" class="btn btn-success">
+                            <i class="fa fa-plus"></i> @lang($namespace . "::base.add")
+                        </a>
+                    </h4>
                 </div>
                 <div class="card-body">
                     <form action="{{url()->current()}}">
