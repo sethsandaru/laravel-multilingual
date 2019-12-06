@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Language extends Model
 {
+	const TABLE = "languages";
     protected $table = "languages";
     protected $primaryKey = "lang_iso_code";
     public $incrementing = false;
@@ -21,7 +22,7 @@ class Language extends Model
      */
     public function getTable()
     {
-        return config("multilingual.table_prefix") . $this->table;
+        return config("multilingual.table_prefix") . self::TABLE;
     }
 
 	/**

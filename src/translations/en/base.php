@@ -23,6 +23,12 @@ return [
 	'cancel' => 'Cancel',
 	'save' => 'Save',
 
+	// action message text
+	'saved_changes' => 'Saved changes!',
+	'failed_action' => 'Failed to process this action, please try again (view log file for more details)',
+	'action_processed' => 'Action processed successfully!',
+	'are-you-sure' => 'Are you sure you want to process this action? Data will be changed and can\'t be recovered.',
+
     // dashboard texts
     'dashboard-title' => 'Laravel Multilingual Dashboard',
     'dashboard-text' => 'Please choose the menu in the left sidebar to continue. Thank you very much for using Laravel Multilingual by Seth Phat.',

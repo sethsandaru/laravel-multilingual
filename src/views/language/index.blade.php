@@ -40,13 +40,18 @@
                                     <td>{{$language->name}}</td>
                                     <td>{{$language->updated_at}}</td>
                                     <td>
-                                        <a href="#" >
+                                        <a href="{{route('lml-language.edit', [$language->lang_iso_code])}}">
                                             <i class="fa fa-edit"></i>
                                         </a>
                                         |
-                                        <a href="#">
+                                        <a class="delete-btn" href="javascript:void(0);" data-id="{{$language->lang_iso_code}}">
                                             <i class="fa fa-trash-o"></i>
                                         </a>
+
+                                        <form action="{{route('lml-language.destroy', [$language->lang_iso_code])}}" id="deleteForm{{$language->lang_iso_code}}" method="POST">
+                                            {!! csrf_field() !!}
+                                            @method('DELETE')
+                                        </form>
                                     </td>
                                 </tr>
                             @empty
@@ -67,3 +72,18 @@
         </div>
     </div>
 @endsection
+
+@push('script')
+    <script>
+        $(document).ready(function () {
+            $(".delete-btn").click(function () {
+                if (!confirm("@lang($namespace .'::base.are-you-sure')")) {
+                    return;
+                }
+
+                var id = $(this).attr('data-id');
+                $("#deleteForm" + id).submit();
+            });
+        });
+    </script>
+@endpush

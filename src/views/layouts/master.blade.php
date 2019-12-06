@@ -59,6 +59,30 @@ Special thanks to Admin template by Creative Tim - 2019 - Light Dashboard Templa
         <!-- End Navbar -->
         <div class="content">
             <div class="container-fluid">
+                <div class="col-md-12">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    @if(session()->get('error'))
+                        <div class="alert alert-danger">
+                            <p>{{session()->get('error')}}</p>
+                        </div>
+                    @endif
+
+                    @if(session()->get('info'))
+                        <div class="alert alert-info">
+                            <p>{{session()->get('info')}}</p>
+                        </div>
+                    @endif
+                </div>
+
                 @yield('main-content')
             </div>
         </div>
