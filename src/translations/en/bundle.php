@@ -19,4 +19,9 @@ return [
 	'field-description' => 'Description',
 	'field-translated' => 'Translated?',
 	'field-last-updated-at' => 'Last Updated At',
+
+    // validation
+    'name.required' => 'Bundle name is missing',
+    'name.max' => 'Bundle name length can\'t be more than :max characters',
+    'name.unique' => 'Bundle name must be UNIQUE in the system. Please consider to use another name.',
 ];

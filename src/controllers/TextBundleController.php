@@ -10,6 +10,8 @@ namespace SethPhat\Multilingual\Controllers;
 
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use SethPhat\Multilingual\Libraries\Events\TextBundleCreated;
 use SethPhat\Multilingual\models\TextBundle;
 
 class TextBundleController extends BaseController
@@ -77,12 +79,41 @@ class TextBundleController extends BaseController
 		]);
 	}
 
+	/**
+	 * Show Create Text Bundle Page
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
     public function create() {
-
+		return $this->loadView('text-bundle.create');
     }
 
-    public function store() {
+    /**
+     * Process Create new Text Bundle
+     * @param Request $rq
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(Request $rq) {
+        $postData = $rq->all();
 
+        // run validator
+        $validator = Validator::make($postData, TextBundle::getValidationRules(), TextBundle::getValidationMessages());
+
+        // oh la la validation XXX
+        if ($validator->fails()) {
+            return redirect()
+                        ->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        // ok save now
+        $entity = TextBundle::create($postData);
+
+        // run event
+        event(new TextBundleCreated($entity));
+
+        // redirect back to index page
+        return redirect()->route('lml-text-bundle.index')->with('info', __('multilingual::base.saved_changes'));
     }
 
     public function edit($id) {

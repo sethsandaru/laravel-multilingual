@@ -55,8 +55,13 @@ To be updated...
 ## Events
 List of events that you can listen to handle:   
 ```php
+// For Language
 SethPhat\Multilingual\Libraries\Events\LanguageCreated - Will run after inserted a new language into database
 SethPhat\Multilingual\Libraries\Events\LanguageRemoved - Will run after a language has been deleted
+
+// For Text Bundle
+SethPhat\Multilingual\Libraries\Events\TextBundleCreated - Will run after a text bundle has been created (new record)
+
 (more to come...)
 ```
 
