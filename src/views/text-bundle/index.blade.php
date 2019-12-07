@@ -14,6 +14,17 @@
                     </h4>
                 </div>
                 <div class="card-body">
+                    <form id="searchForm">
+                        <div class="col-md-12 form-group">
+                            <label>@lang($namespace . "::base.keyword")</label>
+                            <input type="text" id="txt-keyword" name="keyword" class="form-control">
+                        </div>
+                        <div class="col-md-12 text-right">
+                            <button class="btn btn-primary btn-filter">@lang($namespace . "::base.filter")</button>
+                            <button class="btn btn-secondary btn-clear">@lang($namespace . "::base.clear")</button>
+                        </div>
+                    </form>
+                    
                     <table id="bundle-table" class="table table-bordered table-striped table-hover">
                         <thead>
                             <tr>
@@ -38,8 +49,17 @@
 @push('script')
     <script>
         var datatable_obj;
+        var is_loading = true;
+        var keyword;
 
         $(document).ready(function () {
+            // get cache??
+            keyword = sessionStorage.getItem(CACHE_KEY);
+            if (!_.isEmpty(keyword)) {
+                $("#txt-keyword").val(keyword);
+            }
+
+            // datatable
             datatable_obj = $("#bundle-table").DataTable({
                 paging: true,
                 lengthChange: true,
@@ -49,7 +69,13 @@
                 ajax: {
                     url: "{{route('lml-text-bundle.retrieve')}}",
                     data: function (data) {
+                        is_loading = true;
+                        // set csrf
                         data._token = "{{csrf_token()}}";
+
+                        // filter by keyword
+                        data.filter_keyword = keyword;
+
                         return data;
                     },
                     type: "POST"
@@ -77,7 +103,46 @@
                         },
                     },
                 ],
+                drawCallback: afterRenderedTable,
             });
+
+            // filtering...
+            $("#searchForm").submit(doFilter);
+            $(".btn-filter").click(doFilter);
+            $(".btn-clear").click(clearFilter);
         });
+
+        var CACHE_KEY = "TEXT_BUNDLE_CACHE";
+        function doFilter(e) {
+            e.preventDefault();
+            if (is_loading) {
+                return;
+            }
+
+            // prepare & cache
+            keyword = $("#txt-keyword").val();
+            sessionStorage.setItem(CACHE_KEY, keyword);
+
+            // draw table
+            datatable_obj.draw();
+        }
+
+        function clearFilter() {
+            if (is_loading) {
+                return;
+            }
+
+            // remove data
+            sessionStorage.removeItem(CACHE_KEY);
+            keyword = "";
+            $("#txt-keyword").val(null);
+
+            // draw table again
+            datatable_obj.draw();
+        }
+        
+        function afterRenderedTable() {
+            is_loading = false;
+        }
     </script>
 @endpush

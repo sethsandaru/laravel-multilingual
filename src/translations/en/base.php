@@ -22,6 +22,9 @@ return [
 	'delete' => 'Delete',
 	'cancel' => 'Cancel',
 	'save' => 'Save',
+	'keyword' => 'Keyword',
+	'filter' => 'Filter',
+	'clear' => 'Clear',
 
 	// action message text
 	'saved_changes' => 'Saved changes!',

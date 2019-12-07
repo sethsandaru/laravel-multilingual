@@ -53,8 +53,8 @@ class TextBundleController extends BaseController
 		}
 
 		// filter by keyword
-		if (isset($postData['search']['value']) && !empty($postData['search']['value'])) {
-			$keyword = $postData['search']['value'];
+		if (isset($postData['filter_keyword']) && !empty($postData['filter_keyword'])) {
+			$keyword = $postData['filter_keyword'];
 
 			$query->where(function($where_query) use ($keyword) {
 				$where_query->orWhere('name', 'LIKE', "%{$keyword}%");
