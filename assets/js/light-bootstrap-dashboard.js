@@ -202,3 +202,19 @@ function debounce(func, wait, immediate) {
         if (immediate && !timeout) func.apply(context, args);
     };
 };
+
+_.templateSettings = {
+    interpolate: /\{\{(.+?)\}\}/g
+};
+
+/**
+ * Helper Function - Quickly render a HTML
+ * Using underscore
+ * @param {string} template_block_selector
+ * @param {object} data
+ * @returns {string} HTML
+ */
+function render(template_block_selector, data) {
+    var t = _.template($(template_block_selector).html());
+    return t(data || {});
+}

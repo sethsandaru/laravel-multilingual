@@ -19,6 +19,7 @@ Special thanks to Admin template by Creative Tim - 2019 - Light Dashboard Templa
     <!-- CSS Files -->
     <link href="{{asset('vendor/multilingual/css/bootstrap.min.css')}}" rel="stylesheet" />
     <link href="{{asset('vendor/multilingual/css/light-bootstrap-dashboard.css')}}" rel="stylesheet" />
+    <link href="{{asset('vendor/multilingual/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" />
 
     @stack('styles')
 </head>
@@ -110,6 +111,9 @@ Special thanks to Admin template by Creative Tim - 2019 - Light Dashboard Templa
 <script src="{{asset('vendor/multilingual/js/core/jquery.3.2.1.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendor/multilingual/js/core/popper.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendor/multilingual/js/core/bootstrap.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendor/multilingual/js/core/underscore.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendor/multilingual/js/core/jquery.dataTables.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendor/multilingual/js/core/dataTables.bootstrap4.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendor/multilingual/js/light-bootstrap-dashboard.js?v=2.0.0')}}" type="text/javascript"></script>
 @stack('script')
 
