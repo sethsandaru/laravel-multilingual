@@ -6,6 +6,12 @@ namespace SethPhat\Multilingual\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Language
+ * @package SethPhat\Multilingual\Models
+ * @property string $lang_iso_code
+ * @property string $name
+ */
 class Language extends Model
 {
 	const TABLE = "languages";

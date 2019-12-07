@@ -5,9 +5,28 @@ namespace SethPhat\Multilingual;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Illuminate\Support\Facades\App;
+use SethPhat\Multilingual\Libraries\Events\LanguageCreated;
+use SethPhat\Multilingual\libraries\events\LanguageRemoved;
+use SethPhat\Multilingual\libraries\listeners\AppendLangTextListener;
+use SethPhat\Multilingual\libraries\listeners\RemoveLangTextListener;
 
 class ServiceProvider extends BaseServiceProvider
 {
+	/**
+	 * The event listener mappings for the application.
+	 * **MUST**
+	 * @var array
+	 */
+	protected $listen = [
+		LanguageCreated::class => [
+			AppendLangTextListener::class,
+		],
+
+		LanguageRemoved::class => [
+			RemoveLangTextListener::class,
+		],
+	];
+
     /**
      * Bootstrap the application services.
      *

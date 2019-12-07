@@ -35,7 +35,10 @@
     "autoload": {
         "psr-4": {
             "SethPhat\\Multilingual\\": "src/"
-        }
+        },
+        "files": [
+            "src/helpers/multilingual.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
