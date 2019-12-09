@@ -10,6 +10,7 @@ namespace SethPhat\Multilingual\Controllers;
 
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use SethPhat\Multilingual\Libraries\Events\TextBundleCreated;
 use SethPhat\Multilingual\models\TextBundle;
@@ -124,7 +125,37 @@ class TextBundleController extends BaseController
 
     }
 
+    /**
+     * Delete - API
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function destroy($id) {
+        /**
+         * @var TextBundle $bundle
+         */
+        $bundle = TextBundle::find($id);
+        if (empty($bundle)) {
+            return response()->json(['msg' => __('multilingual::bundle.not-found')]);
+        }
 
+        /*
+         * Need to delete:
+         *  - Text Bundle
+         *  - Text Bundle Item
+         *  - LangText of Text Bundle Item
+         */
+        DB::beginTransaction();
+
+        try {
+            $bundle->deleteRelationships();
+            $bundle->delete();
+            DB::commit();
+
+            return response()->json(['msg' => __('multilingual::base.action_processed')]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['msg' => __('multilingual::base.failed_action')]);
+        }
     }
 }

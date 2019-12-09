@@ -23,4 +23,8 @@ class TextBundleItem extends Model
     public function bundle() {
         return $this->belongsTo(TextBundle::class, "text_bundle_id");
     }
+
+    public function langTexts() {
+        return $this->hasMany(LangText::class, "text_id");
+    }
 }

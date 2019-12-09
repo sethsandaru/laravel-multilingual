@@ -24,4 +24,8 @@ return [
     'name.required' => 'Bundle name is missing',
     'name.max' => 'Bundle name length can\'t be more than :max characters',
     'name.unique' => 'Bundle name must be UNIQUE in the system. Please consider to use another name.',
+
+    // message
+    'not-found' => 'Text bundle not found.',
+    'delete-warning' => 'If you delete this text bundle, the process will delete all the items and it\'s language text. Are you still wish to continue?',
 ];

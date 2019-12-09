@@ -20,7 +20,7 @@ class TextBundle extends Model
      * Relationship - Bundle Items
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function bundle_items() {
+    public function bundleItems() {
         return $this->hasMany(TextBundleItem::class, 'text_bundle_id');
     }
 
@@ -63,5 +63,20 @@ class TextBundle extends Model
             'name.max' => __('multilingual::bundle.name.max'),
             'name.unique' => __('multilingual::bundle.name.unique'),
         ];
+    }
+
+    /**
+     * Delete all related-relationship
+     */
+    public function deleteRelationships() {
+        // prepare items
+        $bundle_items = TextBundleItem::query()
+                                ->where('text_bundle_id'. $this->id);
+
+        // delete lang_texts
+        LangText::query()->where('text_bundle_item_id', $bundle_items->pluck('id'));
+
+        // delete text_bundle_items
+        $bundle_items->delete();
     }
 }

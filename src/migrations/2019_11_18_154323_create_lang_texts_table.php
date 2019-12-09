@@ -18,6 +18,9 @@ class CreateLangTextsTable extends Migration
             $table->char("lang_code", 5);
             $table->text('lang_text')->nullable();
 
+            // denormalization??
+            $table->bigInteger("text_bundle_item_id")->nullable()->index();
+
             $table->primary(['text_id', 'lang_code']);
         });
     }
