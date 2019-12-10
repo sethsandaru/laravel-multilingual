@@ -71,7 +71,7 @@ class TextBundle extends Model
     public function deleteRelationships() {
         // prepare items
         $bundle_items = TextBundleItem::query()
-                                ->where('text_bundle_id'. $this->id);
+                                ->where('text_bundle_id', $this->id);
 
         // delete lang_texts
         LangText::query()->where('text_bundle_item_id', $bundle_items->pluck('id'));

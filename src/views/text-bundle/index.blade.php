@@ -110,6 +110,9 @@
             $("#searchForm").submit(doFilter);
             $(".btn-filter").click(doFilter);
             $(".btn-clear").click(clearFilter);
+
+            // delete
+            $("#bundle-table").on('click', '.delete-btn', deleteBundle);
         });
 
         var CACHE_KEY = "TEXT_BUNDLE_CACHE";
@@ -124,7 +127,7 @@
             sessionStorage.setItem(CACHE_KEY, keyword);
 
             // draw table
-            datatable_obj.draw();
+            reloadTable();
         }
 
         function clearFilter() {
@@ -138,11 +141,44 @@
             $("#txt-keyword").val(null);
 
             // draw table again
+            reloadTable();
+        }
+        
+        function reloadTable() {
             datatable_obj.draw();
         }
         
         function afterRenderedTable() {
             is_loading = false;
+        }
+
+        function deleteBundle(e) {
+            if (!e) {
+                return;
+            }
+
+            var submit_url = $(this).attr('data-url');
+            if (!submit_url) {
+                return;
+            }
+
+            // confirmation first
+            if (!confirm("@lang($namespace . "::bundle.delete-warning")")) {
+                return;
+            }
+
+            // request API to delete
+            $.ajax({
+                type: "DELETE",
+                url: submit_url,
+                dataType: 'json',
+                data: {
+                    _token: "{{csrf_token()}}"
+                }
+            }).done(function (data) {
+                alert(data.msg);
+                reloadTable();
+            });
         }
     </script>
 @endpush
