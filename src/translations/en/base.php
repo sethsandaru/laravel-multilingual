@@ -25,6 +25,8 @@ return [
 	'keyword' => 'Keyword',
 	'filter' => 'Filter',
 	'clear' => 'Clear',
+	'yes' => 'Yes',
+	'no' => 'No',
 
 	// action message text
 	'saved_changes' => 'Saved changes!',

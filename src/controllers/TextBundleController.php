@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use SethPhat\Multilingual\Libraries\Events\TextBundleCreated;
+use SethPhat\Multilingual\Libraries\Events\TextBundleUpdated;
 use SethPhat\Multilingual\models\TextBundle;
 
 class TextBundleController extends BaseController
@@ -117,12 +118,61 @@ class TextBundleController extends BaseController
         return redirect()->route('lml-text-bundle.index')->with('info', __('multilingual::base.saved_changes'));
     }
 
+    /**
+     * Show edit bundle page
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function edit($id) {
+        $bundle = TextBundle::find($id);
+        if (empty($bundle)) {
+            return redirect()->route('lml-text-bundle.index')
+                            ->with('error', __('multilingual::bundle.not-found'));
+        }
 
+        return $this->loadView('text-bundle.edit', compact('bundle'));
     }
 
-    public function update($id) {
+    /**
+     * Process update action
+     * @param $id
+     * @param Request $rq
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update($id, Request $rq) {
+        $bundle = TextBundle::find($id);
+        if (empty($bundle)) {
+            return redirect()->route('lml-text-bundle.index')
+                            ->with('error', __('multilingual::bundle.not-found'));
+        }
 
+        $postData = $rq->all();
+        if ($bundle->name != $postData['name']) {
+            // need to run validation
+            $validator = Validator::make($postData, TextBundle::getValidationRules(), TextBundle::getValidationMessages());
+
+            // oh la la validation XXX
+            if ($validator->fails()) {
+                return redirect()
+                    ->back()
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+        }
+
+        // ok update
+        $bundle->fill($postData);
+        if (!$bundle->save()) {
+            return redirect()
+                    ->back()
+                    ->with('error', __('multilingual::base.failed_action'))
+                    ->withInput();
+        }
+
+        // run event
+        event(new TextBundleUpdated($bundle));
+
+        return redirect()->route('lml-text-bundle.index')->with('info', __('multilingual::base.saved_changes'));
     }
 
     /**
