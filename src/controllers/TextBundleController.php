@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use SethPhat\Multilingual\Libraries\Events\TextBundleCreated;
+use SethPhat\Multilingual\Libraries\Events\TextBundleRemoved;
 use SethPhat\Multilingual\Libraries\Events\TextBundleUpdated;
 use SethPhat\Multilingual\models\TextBundle;
 
@@ -189,6 +190,9 @@ class TextBundleController extends BaseController
             return response()->json(['msg' => __('multilingual::bundle.not-found')]);
         }
 
+        // get the data for event before delete
+        $data_for_event = $bundle->toArray();
+
         /*
          * Need to delete:
          *  - Text Bundle
@@ -201,6 +205,9 @@ class TextBundleController extends BaseController
             $bundle->deleteRelationships();
             $bundle->delete();
             DB::commit();
+
+            // run event
+            event(new TextBundleRemoved($data_for_event));
 
             return response()->json(['msg' => __('multilingual::base.action_processed')]);
         } catch (\Exception $e) {

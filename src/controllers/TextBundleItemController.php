@@ -12,7 +12,12 @@ namespace SethPhat\Multilingual\Controllers;
 class TextBundleItemController extends BaseController
 {
     public function index() {
+        // get all text-bundle
 
+        // get all languages
+
+        
+        return $this->loadView('text-bundle-item.index');
     }
 
     public function create() {

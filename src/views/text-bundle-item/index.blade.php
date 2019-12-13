@@ -6,33 +6,52 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">
-                        @lang($namespace . "::bundle.title")
+                        @lang($namespace . "::bundle-item.title")
 
-                        <a href="{{route('lml-text-bundle.create')}}" class="btn btn-success">
+                        <a href="{{route('lml-text-bundle-item.create')}}" class="btn btn-success">
                             <i class="fa fa-plus"></i> @lang($namespace . "::base.add")
                         </a>
                     </h4>
                 </div>
                 <div class="card-body">
                     <form id="searchForm">
-                        <div class="col-md-12 form-group">
-                            <label>@lang($namespace . "::base.keyword")</label>
-                            <input type="text" id="txt-keyword" name="keyword" class="form-control">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label>@lang($namespace . "::base.keyword")</label>
+                                <input type="text" id="txt-keyword" name="keyword" class="form-control">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>@lang($namespace . "::bundle-item.filter-text-bundle")</label>
+                                <select name="" class="form-control">
+
+                                </select>
+                            </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label>@lang($namespace . "::bundle-item.filter-lang-text-type")</label>
+                                <select name="" class="form-control">
+
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="col-md-12 text-right">
                             <button class="btn btn-primary btn-filter">@lang($namespace . "::base.filter")</button>
                             <button class="btn btn-secondary btn-clear">@lang($namespace . "::base.clear")</button>
                         </div>
                     </form>
                     
-                    <table id="bundle-table" class="table table-bordered table-striped table-hover">
+                    <table id="bundle-item-table" class="table table-bordered table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>@lang($namespace . "::bundle.field-ID")</th>
-                                <th>@lang($namespace . "::bundle.field-name")</th>
-                                <th>@lang($namespace . "::bundle.field-description")</th>
-                                <th>@lang($namespace . "::bundle.field-translated")</th>
-                                <th>@lang($namespace . "::bundle.field-last-updated-at")</th>
+                                <th>@lang($namespace . "::bundle-item.field-ID")</th>
+                                <th>@lang($namespace . "::bundle-item.field-key")</th>
+                                <th>@lang($namespace . "::bundle-item.field-text")</th>
+                                <th>@lang($namespace . "::bundle-item.field-description")</th>
+                                <th>@lang($namespace . "::bundle-item.field-translated")</th>
+                                <th>@lang($namespace . "::bundle-item.field-last-updated")</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -60,7 +79,7 @@
             }
 
             // datatable
-            datatable_obj = $("#bundle-table").DataTable({
+            datatable_obj = $("#bundle-item-table").DataTable({
                 paging: true,
                 lengthChange: true,
                 searching: false,
