@@ -22,8 +22,11 @@
                             </div>
                             <div class="col-md-6 form-group">
                                 <label>@lang($namespace . "::bundle-item.filter-text-bundle")</label>
-                                <select name="" class="form-control">
-
+                                <select id="filter-bundle" class="form-control">
+                                    <option value="" selected>@lang($namespace . "::bundle-item.all-bundle")</option>
+                                    @foreach($text_bundle_options as $id => $name)
+                                        <option value="{{$id}}">{{$name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -32,13 +35,16 @@
                             <div class="col-md-6 form-group">
                                 <label>@lang($namespace . "::bundle-item.filter-lang-text-type")</label>
                                 <select name="" class="form-control">
-
+                                    <option value="" selected>@lang($namespace . "::bundle-item.current-language", ['lang' => App::getLocale()])</option>
+                                    @foreach($language_options as $lang_code => $name)
+                                        <option value="{{$lang_code}}">{{$name}} ({{$lang_code}})</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
 
                         <div class="col-md-12 text-right">
-                            <button class="btn btn-primary btn-filter">@lang($namespace . "::base.filter")</button>
+                            <button class="btn btn-primary btn-filter">@lang($namespace . "::base.apply")</button>
                             <button class="btn btn-secondary btn-clear">@lang($namespace . "::base.clear")</button>
                         </div>
                     </form>
@@ -47,6 +53,7 @@
                         <thead>
                             <tr>
                                 <th>@lang($namespace . "::bundle-item.field-ID")</th>
+                                <th>@lang($namespace . "::bundle-item.field-text-bundle")</th>
                                 <th>@lang($namespace . "::bundle-item.field-key")</th>
                                 <th>@lang($namespace . "::bundle-item.field-text")</th>
                                 <th>@lang($namespace . "::bundle-item.field-description")</th>
@@ -86,7 +93,7 @@
                 serverSide: true,
                 processing: true,
                 ajax: {
-                    url: "{{route('lml-text-bundle.retrieve')}}",
+                    url: "{{route('lml-text-bundle-item.retrieve')}}",
                     data: function (data) {
                         is_loading = true;
                         // set csrf
@@ -104,13 +111,19 @@
                         data: "id",
                     },
                     {
-                        data: "name",
+                        data: "bundle_name",
+                    },
+                    {
+                        data: "key",
+                    },
+                    {
+                        data: "text_value",
                     },
                     {
                         data: "description",
                     },
                     {
-                        data: "translated_text",
+                        data: "is_translated",
                     },
                     {
                         data: "updated_at",
@@ -168,6 +181,7 @@
         }
         
         function afterRenderedTable() {
+            // $("#bundle-item-table").css('width', '100%');
             is_loading = false;
         }
 

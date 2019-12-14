@@ -8,7 +8,6 @@
 
 namespace SethPhat\Multilingual\libraries\listeners;
 
-
 use SethPhat\Multilingual\Libraries\Events\LanguageCreated;
 use SethPhat\Multilingual\models\LangText;
 

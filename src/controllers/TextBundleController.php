@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Validator;
 use SethPhat\Multilingual\Libraries\Events\TextBundleCreated;
 use SethPhat\Multilingual\Libraries\Events\TextBundleRemoved;
 use SethPhat\Multilingual\Libraries\Events\TextBundleUpdated;
-use SethPhat\Multilingual\models\TextBundle;
+use SethPhat\Multilingual\Models\TextBundle;
 
 class TextBundleController extends BaseController
 {

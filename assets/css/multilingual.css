@@ -1,0 +1,17 @@
+.lang-text-control-container {
+    position: relative;
+}
+
+.lang-text-control-container .toggle {
+    position: absolute;
+    right: 5px;
+    top: -10px;
+}
+
+.lang-text-control-container .form-control {
+    height: auto;
+}
+
+.hidden {
+    display: none;
+}

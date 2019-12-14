@@ -24,4 +24,5 @@ Route::prefix(config('multilingual.route_prefix'))
 
         // APIs
 		Route::post('/lml-text-bundle/retrieve', 'TextBundleController@retrieve')->name('lml-text-bundle.retrieve');
+		Route::post('/lml-text-bundle-item/retrieve', 'TextBundleItemController@retrieve')->name('lml-text-bundle-item.retrieve');
 });

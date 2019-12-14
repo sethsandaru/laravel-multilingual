@@ -27,6 +27,8 @@ return [
 	'clear' => 'Clear',
 	'yes' => 'Yes',
 	'no' => 'No',
+	'apply' => 'Apply',
+	'new' => 'New',
 
 	// action message text
 	'saved_changes' => 'Saved changes!',
