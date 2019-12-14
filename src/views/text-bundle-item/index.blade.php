@@ -34,7 +34,7 @@
                         <div class="row">
                             <div class="col-md-6 form-group">
                                 <label>@lang($namespace . "::bundle-item.filter-lang-text-type")</label>
-                                <select name="" class="form-control">
+                                <select id="filter-lang" class="form-control">
                                     <option value="" selected>@lang($namespace . "::bundle-item.current-language", ['lang' => App::getLocale()])</option>
                                     @foreach($language_options as $lang_code => $name)
                                         <option value="{{$lang_code}}">{{$name}} ({{$lang_code}})</option>
@@ -76,13 +76,21 @@
     <script>
         var datatable_obj;
         var is_loading = true;
-        var keyword;
+        var keyword, bundle_id, show_lang;
 
         $(document).ready(function () {
             // get cache??
             keyword = sessionStorage.getItem(CACHE_KEY);
+            bundle_id = sessionStorage.getItem(CACHE_BUNDLE);
+            show_lang = sessionStorage.getItem(CACHE_LANG);
             if (!_.isEmpty(keyword)) {
                 $("#txt-keyword").val(keyword);
+            }
+            if (!_.isEmpty(bundle_id)) {
+                $("#filter-bundle").val(bundle_id);
+            }
+            if (!_.isEmpty(show_lang)) {
+                $("#filter-lang").val(show_lang);
             }
 
             // datatable
@@ -101,6 +109,10 @@
 
                         // filter by keyword
                         data.filter_keyword = keyword;
+                        data.filter_bundle = bundle_id;
+
+                        // show by lang
+                        data.language = show_lang;
 
                         return data;
                     },
@@ -144,10 +156,13 @@
             $(".btn-clear").click(clearFilter);
 
             // delete
-            $("#bundle-table").on('click', '.delete-btn', deleteBundle);
+            $("#bundle-table").on('click', '.delete-btn', deleteItem);
         });
 
-        var CACHE_KEY = "TEXT_BUNDLE_CACHE";
+        var CACHE_KEY = "TEXT_BUNDLE_ITEM_CACHE";
+        var CACHE_BUNDLE = "TEXT_BUNDLE_ITEM_BUNDLE";
+        var CACHE_LANG = "TEXT_BUNDLE_ITEM_LANG";
+
         function doFilter(e) {
             e.preventDefault();
             if (is_loading) {
@@ -157,6 +172,12 @@
             // prepare & cache
             keyword = $("#txt-keyword").val();
             sessionStorage.setItem(CACHE_KEY, keyword);
+
+            show_lang = $("#filter-lang").val();
+            sessionStorage.setItem(CACHE_LANG, show_lang);
+
+            bundle_id = $("#filter-bundle").val();
+            sessionStorage.setItem(CACHE_BUNDLE, bundle_id);
 
             // draw table
             reloadTable();
@@ -169,8 +190,10 @@
 
             // remove data
             sessionStorage.removeItem(CACHE_KEY);
-            keyword = "";
-            $("#txt-keyword").val(null);
+            sessionStorage.removeItem(CACHE_BUNDLE);
+            sessionStorage.removeItem(CACHE_LANG);
+            keyword = show_lang = bundle_id = "";
+            $("#txt-keyword, #filter-lang, #filter-bundle").val(null);
 
             // draw table again
             reloadTable();
@@ -185,7 +208,7 @@
             is_loading = false;
         }
 
-        function deleteBundle(e) {
+        function deleteItem(e) {
             if (!e) {
                 return;
             }
@@ -196,7 +219,7 @@
             }
 
             // confirmation first
-            if (!confirm("@lang($namespace . "::bundle.delete-warning")")) {
+            if (!confirm("@lang($namespace . "::bundle-item.delete-warning")")) {
                 return;
             }
 

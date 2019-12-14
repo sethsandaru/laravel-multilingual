@@ -22,7 +22,7 @@ class CreateTextBundleItemsTable extends Migration
             $table->string("description")->nullable();
             $table->boolean("is_translated")->default(false);
 
-            $table->integer("updated_times")->default(1);
+            $table->integer("updated_times")->default(0);
             $table->bigInteger("last_updated_by")->nullable();
             $table->timestamps();
 

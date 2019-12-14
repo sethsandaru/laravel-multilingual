@@ -55,6 +55,11 @@ class TextBundleItemController extends BaseController
         return $this->loadView('text-bundle-item.create', compact('text_bundle_options', 'language_options'));
     }
 
+    /**
+     * [POST] Process create new
+     * @param Request $rq
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $rq) {
         $postData = $rq->all();
 
@@ -80,6 +85,9 @@ class TextBundleItemController extends BaseController
                 'text_id' => $text_id
             ]));
 
+            // re-update the ids
+            LangText::saveTextBundleId($text_id, $bundle_item->id);
+
             // commit changes
             DB::commit();
 
@@ -99,7 +107,17 @@ class TextBundleItemController extends BaseController
     }
 
     public function edit($id) {
+        $bundle_item = TextBundleItem::find($id);
+        if (empty($bundle_item)) {
+            return redirect()
+                ->route('lml-text-bundle-item.index')
+                ->with('error', __('multilingual::bundle-item.not-found', [$id]));
+        }
 
+        // get all languages
+        $language_options = Language::all()->pluck('name', 'lang_iso_code');
+
+        return $this->loadView('text-bundle-item.edit', compact('bundle_item', 'language_options'));
     }
 
     public function update($id, Request $rq) {

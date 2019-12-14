@@ -18,9 +18,12 @@ return [
     'field-translated' => 'Translated?',
     'field-last-updated' => 'Last Updated',
     'field-text-bundle' => 'Text Bundle',
+    'field-number-updates' => 'Number of Updates',
 
     // message/note
     'field-select-a-bundle' => 'Select a text bundle',
+    'delete-warning' => 'If you delete this text bundle item, the process will delete all its language text. Are you still wish to continue?',
+    'not-found' => 'This Text Bundle Item (ID: :id) does not existed.',
 
     // filter
     'filter-text-bundle' => 'Only Text Bundle',

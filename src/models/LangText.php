@@ -128,4 +128,18 @@ class LangText extends Model
 
         return true;
     }
+
+    /**
+     * Update TextBundleItem ID (Easy to handle)
+     * @param $text_id
+     * @param $text_bundle_item_id
+     * @return int
+     */
+    public static function saveTextBundleId($text_id, $text_bundle_item_id) {
+        return DB::table("lang_texts")
+            ->where('text_id', $text_id)
+            ->update([
+                'text_bundle_item_id' => $text_bundle_item_id
+            ]);
+    }
 }

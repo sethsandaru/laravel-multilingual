@@ -6,11 +6,11 @@
  * Time: 10:51 AM
  */
 
-namespace SethPhat\Multilingual\libraries\listeners;
+namespace SethPhat\Multilingual\Libraries\Listeners;
 
 
-use SethPhat\Multilingual\libraries\events\LanguageRemoved;
-use SethPhat\Multilingual\models\LangText;
+use SethPhat\Multilingual\Libraries\Events\LanguageRemoved;
+use SethPhat\Multilingual\Models\LangText;
 
 class RemoveLangTextListener
 {

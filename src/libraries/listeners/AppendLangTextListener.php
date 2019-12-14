@@ -6,10 +6,10 @@
  * Time: 10:44 AM
  */
 
-namespace SethPhat\Multilingual\libraries\listeners;
+namespace SethPhat\Multilingual\Libraries\Listeners;
 
 use SethPhat\Multilingual\Libraries\Events\LanguageCreated;
-use SethPhat\Multilingual\models\LangText;
+use SethPhat\Multilingual\Models\LangText;
 
 class AppendLangTextListener
 {

@@ -5,6 +5,7 @@ namespace SethPhat\Multilingual\Models;
 
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\DB;
  * Class TextBundleItem
  * @package SethPhat\Multilingual\models
  * @method static Builder byKeyAndBundleId(string $key, integer $bundle_id)
+ * @property TextBundle $bundle Relationship
+ * @property LangText[]|Collection $langTexts Relationship
  */
 class TextBundleItem extends Model
 {
@@ -52,6 +55,13 @@ class TextBundleItem extends Model
     public function scopeByKeyAndBundleId($query, $key, $bundle_id) {
         return $query->where('key', $key)
                     ->where('text_bundle_id', $bundle_id);
+    }
+
+    /***************************************************************************
+     *  Accessor
+     ***************************************************************************/
+    public function getAllLangTextsAttribute() {
+        return $this->langTexts->pluck('lang_text', 'lang_code');
     }
 
     /**
@@ -143,10 +153,11 @@ class TextBundleItem extends Model
 
         // filter - keyword
         if (isset($postData['filter_keyword']) && !empty($postData['filter_keyword'])) {
-            $keyword = $postData['filter_bundle'];
+            $keyword = $postData['filter_keyword'];
             $query->where(function($sub_query) use ($keyword) {
-                $sub_query->orWhere('key', 'LIKE', "%{$keyword}%");
-                $sub_query->orWhere('description', 'LIKE', "%{$keyword}%");
+                $sub_query->orWhere('text_bundle_items.key', 'LIKE', "%{$keyword}%");
+                $sub_query->orWhere('text_bundle_items.description', 'LIKE', "%{$keyword}%");
+                $sub_query->orWhere('lang_texts.lang_text', 'LIKE', "%{$keyword}%");
             });
         }
 
@@ -161,7 +172,7 @@ class TextBundleItem extends Model
         foreach ($result as $index => $item) {
             // get urls
             $result[$index]->urls = [
-                'edit' => route('lml-text-bundle-item.update', [$item->id]),
+                'edit' => route('lml-text-bundle-item.edit', [$item->id]),
                 'delete' => route('lml-text-bundle-item.destroy', [$item->id]),
             ];
 
