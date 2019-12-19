@@ -28,4 +28,5 @@ return [
     // message
     'not-found' => 'Text bundle not found.',
     'delete-warning' => 'If you delete this text bundle, the process will delete all the items and it\'s language text. Are you still wish to continue?',
+    'cache-is-turned-off' => 'Multilingual Cache Setting is turned off. Action aborted!',
 ];

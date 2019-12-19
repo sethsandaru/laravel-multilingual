@@ -189,7 +189,35 @@ class TextBundleItemController extends BaseController
         }
     }
 
+    /**
+     * [DELETE] Process Delete
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function destroy($id) {
+        /**
+         * @var TextBundleItem $bundle_item
+         */
+        $bundle_item = TextBundleItem::find($id);
+        if (empty($bundle_item)) {
+            return response()->json(['msg' => __('multilingual::bundle-item.not-found', [$id])]);
+        }
 
+        DB::beginTransaction();
+        try {
+            // delete langText
+            $bundle_item->langTexts()->delete();
+
+            // delete bundle
+            $bundle_item->delete();
+
+            // done
+            DB::commit();
+
+            return response()->json(['msg' => __('multilingual::base.action_processed')]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['msg' => __('multilingual::base.failed_action')]);
+        }
     }
 }

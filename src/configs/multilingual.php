@@ -15,15 +15,16 @@ return [
 
     /**
      * You should decided whether you want to use cache or not.
-     * If you don't use cache, the library will query every time you get the text
-     * If you use cache, you need to publish the text bundle before using the text
+     * If you don't use cache, the library will query to the Database every time you get the text
+     * If you use cache, you need to publish the text bundle before using the text. All the text bundle items will be Cached Forever until you published it again.
      * Default: false
      */
     'use_cache' => false,
 
     /**
      * Your custom middleware to access the Backend Pages
-     * Default: 'auth' => authentication check of Laravel Authentication
+     * Default: [] => No-check at all
+     * Suggestion: ['auth', '..'] => Only authenticated user can go in
      */
     'custom_middleware' => [], //
 

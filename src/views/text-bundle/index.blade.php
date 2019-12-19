@@ -113,6 +113,7 @@
 
             // delete
             $("#bundle-table").on('click', '.delete-btn', deleteBundle);
+            $("#bundle-table").on('click', '.publish-btn', publishBundle);
         });
 
         var CACHE_KEY = "TEXT_BUNDLE_CACHE";
@@ -178,6 +179,29 @@
             }).done(function (data) {
                 alert(data.msg);
                 reloadTable();
+            });
+        }
+        
+        function publishBundle(e) {
+            if (!e) {
+                return;
+            }
+
+            var submit_url = $(this).attr('data-url');
+            if (!submit_url) {
+                return;
+            }
+
+            // request API to delete
+            $.ajax({
+                type: "POST",
+                url: submit_url,
+                dataType: 'json',
+                data: {
+                    _token: "{{csrf_token()}}"
+                }
+            }).done(function (data) {
+                alert(data.msg);
             });
         }
     </script>

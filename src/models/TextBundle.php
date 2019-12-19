@@ -5,7 +5,14 @@ namespace SethPhat\Multilingual\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+use SethPhat\Multilingual\Libraries\Helper;
 
+/**
+ * Class TextBundle
+ * @package SethPhat\Multilingual\Models
+ * @property TextBundleItem[] $bundleItems
+ */
 class TextBundle extends Model
 {
     protected $table = "text_bundles";
@@ -32,6 +39,7 @@ class TextBundle extends Model
     	return [
     		'edit' => route('lml-text-bundle.edit', [$this->id]),
     		'delete' => route('lml-text-bundle.destroy', [$this->id]),
+            'publish' => route('lml-text-bundle.publish', [$this->id])
 		];
 	}
 
@@ -78,5 +86,24 @@ class TextBundle extends Model
 
         // delete text_bundle_items
         $bundle_items->delete();
+    }
+
+    /**
+     * Publishing the text bundle
+     */
+    public function publish() {
+        // DB Query seem like better than traverse through Laravel Relationship.
+        $langTexts = DB::table("lang_texts")
+                    ->join("text_bundle_items", "lang_texts.text_id", '=', "text_bundle_items.text_id")
+                    ->select([
+                        'lang_texts.*',
+                        'text_bundle_items.key'
+                    ])
+                    ->where('text_bundle_items.text_bundle_id', $this->id)
+                    ->get();
+
+        foreach ($langTexts as $langObj) {
+            Helper::setToCache($langObj->key, $this->name, $langObj->lang_code, $langObj->lang_text);
+        }
     }
 }

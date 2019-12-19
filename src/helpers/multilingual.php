@@ -15,7 +15,12 @@ if (!function_exists('multilingual')) {
 	 * @throws \RuntimeException if text module item not found and $should_throw is TRUE
 	 * @return string
 	 */
-	function multilingual($key, $module_name, $replace_text = [], $specific_language = null, $should_throw = true) {
+	function multilingual($key = null, $module_name = null, $replace_text = [], $specific_language = null, $should_throw = true) {
+	    if (func_num_args() == 0) {
+	        return app('multilingual');
+        }
+
+	    // get translation text
 		return app('multilingual')->get($key, $module_name, $replace_text, $specific_language, $should_throw);
 	}
 }

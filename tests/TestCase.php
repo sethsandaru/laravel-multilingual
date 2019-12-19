@@ -1,7 +1,7 @@
 <?php
 
 
-namespace SethPhat\:namespace\Tests;
+namespace SethPhat\Multilingual\Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Tests\CreatesApplication;

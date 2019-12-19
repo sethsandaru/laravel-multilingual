@@ -11,6 +11,7 @@ namespace SethPhat\Multilingual\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use SethPhat\Multilingual\Libraries\Events\TextBundleCreated;
 use SethPhat\Multilingual\Libraries\Events\TextBundleRemoved;
@@ -212,6 +213,33 @@ class TextBundleController extends BaseController
             return response()->json(['msg' => __('multilingual::base.action_processed')]);
         } catch (\Exception $e) {
             DB::rollBack();
+            return response()->json(['msg' => __('multilingual::base.failed_action')]);
+        }
+    }
+
+    /**
+     * [POST] Do publish to cache.
+     */
+    public function publish($id) {
+        /**
+         * @var TextBundle $bundle
+         */
+        $bundle = TextBundle::find($id);
+        if (empty($bundle)) {
+            return response()->json(['msg' => __('multilingual::bundle.not-found')]);
+        }
+
+        // we don't do it if the system don't use cache text
+        if (config('multilingual.use_cache') === false) {
+            return response()->json(['msg' => __('multilingual::bundle.cache-is-turned-off')]);
+        }
+
+        try {
+            // publish here
+            $bundle->publish();
+            return response()->json(['msg' => __('multilingual::base.action_processed')]);
+        } catch (\Exception $e) {
+            Log::error("PUBLISHED_ERROR", json_encode($e));
             return response()->json(['msg' => __('multilingual::base.failed_action')]);
         }
     }

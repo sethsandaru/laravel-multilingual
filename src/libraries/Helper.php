@@ -29,9 +29,22 @@ class Helper
     }
 
     /**
+     * @param $key
+     * @param $module_name
+     * @param $lang_code
+     * @param $text
+     * @return bool
+     */
+    public static function setToCache($key, $module_name, $lang_code, $text) {
+        $cache_key = "{$key}_{$module_name}_{$lang_code}";
+        return Cache::forever($cache_key, $text);
+    }
+
+    /**
      * Replace Text
      * @param $text
      * @param array $replace_data
+     * @return string
      */
     public static function replaceText($text, array $replace_data) {
         if (!isset(static::$replacement)) {
