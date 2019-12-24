@@ -14,21 +14,6 @@ use Illuminate\Support\Facades\Event;
 class ServiceProvider extends BaseServiceProvider
 {
     /**
-     * The event listener mappings for the application.
-     * **MUST**
-     * @var array
-     */
-    protected $listen = [
-        LanguageCreated::class => [
-            AppendLangTextListener::class,
-        ],
-
-        LanguageRemoved::class => [
-            RemoveLangTextListener::class,
-        ],
-    ];
-
-    /**
      * Bootstrap the application services.
      *
      * @return void
@@ -46,12 +31,8 @@ class ServiceProvider extends BaseServiceProvider
         ], 'multilingual');
 
         // Manually register my own event for this package development
-        // BASED ON: https://github.com/laravel/framework/blob/5.5/src/Illuminate/Foundation/Support/Providers/EventServiceProvider.php
-        foreach ($this->listen as $event => $listeners) {
-            foreach ($listeners as $listener) {
-                Event::listen($event, $listener);
-            }
-        }
+        Event::listen(LanguageCreated::class, AppendLangTextListener::class);
+        Event::listen(LanguageRemoved::class, RemoveLangTextListener::class);
     }
 
     /**
