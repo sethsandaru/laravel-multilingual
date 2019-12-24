@@ -8,13 +8,13 @@ I'm working with a system serving 64+ countries and supported 80+ languages arou
 dealing with multilingual. So it would be a great idea to create a Package for Laravel (my favorite framework while using PHP).
 
 In the perfect case, we will dealing with the language bundle text dynamically from the database. So main advantages should be:   
-- Dynamic & flexible to use.
+- Super Dynamic & flexible to use.
 - No need to touch the static language files (in `resources/lang/...`). It's a pain in the ass for the editors/translators to update the language text.
 - Available to deal with all languages around the world.
 - Live editing the language text from the backend-side with a good editor & UI.
 - Cache-able to keep the performance rise.
 
-Status: **Releasing version 1.0.0**
+Status: **v1.0.0 is available** 
 
 ## Supported Laravel Versions
 | Version | Tested? | Supported? |
@@ -28,18 +28,21 @@ Status: **Releasing version 1.0.0**
 
 ## Ideas
 
-### v1.0.0
+### v1.0.0 - Static Language Text
 - There will be Text Bundle and Text Bundle Item.
 - Text Bundle is like a group of text items. Same as a single translation file in Laravel.
 - Text Bundle Item is where you keep your translation text.
 - All the management things (Add/Edit/Delete) are happen on the web-backend. No need to touch the code.
 - Cache-ready
 
+### v1.1.0 - Inject-able to specific Entity
+- Planning...
+
 ## Dependencies/Technologies/Languages
 - PHP7+
 - Laravel framework
 - Database (MySQL, MariaDB,...)
-- Javascript:
+- Javascript (For backend pages):
     - JQuery
     - Bootstrap 4
     - DataTable
@@ -50,6 +53,15 @@ Status: **Releasing version 1.0.0**
 ```php
 composer require sethsandaru/laravel-multilingual
 ```
+
+### (Only for Laravel < 5.4) Inject Multilingual - ServiceProvider
+Open to: `config\app.php`
+
+Add this to `providers`:
+```php
+SethPhat\Multilingual\ServiceProvider::class
+```
+
 ### Run Migration and Publish Assets
 ```php
 php artisan migrate
@@ -61,15 +73,22 @@ After you published the vendor's assets. The configuration file should be publis
 
 Full description in file for each configuration, check it out.
 
-### Management System
-By default, you can access the management backend from this url:  
+Configuration file: [config/multilingual.php](https://github.com/sethsandaru/laravel-multilingual/blob/master/src/configs/multilingual.php)
+
+### Management System / Backend Pages
+This is where you can add/edit/delete the Language Text. By default, you can access the management backend from this url:  
 ```php
 http(s)://<your_domain>/settings/multilingual
 ```
 
 For the prefix, to change it you need to change it from the configuration file (detail above).
 
-Available language in backend pages: English, Vietnamese.
+**Security**: You need to make sure that `custom_middleware` in the configuration file `multilingual.php` is set. 
+Default setting is no-middleware so everybody can access (dangerous). It should be some specific users can access the Backend Page.
+
+Example: `'custom_middleware => ['auth', 'admin']` => Logged in user and must be an Admin.
+
+Available language in backend pages: English, Vietnamese (More, if you suggest).
 
 ## APIs/Functions/Helpers
 
@@ -111,7 +130,7 @@ SethPhat\Multilingual\Libraries\Events\TextBundleItemUpdated - Will run after a 
 SethPhat\Multilingual\Libraries\Events\TextBundleItemRemoved - Will run after a text bundle item has been deleted
 ```
 ## Tests
-Run Unit Test:
+Run Unit Test (from Laravel Project):
 ```php
 ./vendor/bin/phpunit --bootstrap vendor/autoload.php vendor/sethsandaru/laravel-multilingual/
 ```
@@ -121,10 +140,12 @@ Run Unit Test:
     - Management Page to Add/Edit/Remove the Static Text (Text Module)
     - Helper function to get the static text 
     - Serving the static text and caching mechanism
+    - Released on 24/12/2019
 - v1.0.1 - Translation for your own Entity/Table, including:
     - Easy to inject the Multilingual for your Entity/Table.
     - Prepared all the Class/Traits needed for Eloquent
     - Management your Entity/Table translation data in Management Page (Maybe?)
+    - CI - TravisCI
 
 ## Supporting the project
 If you really like this project & want to contribute a little for the development. You can buy me a coffee. Thank you very much for your supporting <3.
