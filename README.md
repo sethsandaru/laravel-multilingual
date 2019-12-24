@@ -58,6 +58,8 @@ http(s)://<your_domain>/settings/multilingual
 
 For the prefix, to change it you need to change it from the configuration file (detail above).
 
+Available language in backend pages: English, Vietnamese.
+
 ## APIs/Functions/Helpers
 
 ### Get Translation Text
