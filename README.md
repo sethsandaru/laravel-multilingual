@@ -1,4 +1,7 @@
 # Laravel Multilingual
+![Version 1.0.0](https://img.shields.io/badge/version-1.0.0-green) 
+[![Total Viewers](http://hits.dwyl.io/sethsandaru/laravel-multilingual.svg)](http://hits.dwyl.io/sethsandaru/laravel-multilingual)
+
 Laravel Multilingual is a library to help you to dealing with the multi-languages text on your website.
 
 I'm working with a system serving 64+ countries and supported 80+ languages around the world. Basically I'm already got a good hand-on experience
@@ -11,9 +14,17 @@ In the perfect case, we will dealing with the language bundle text dynamically f
 - Live editing the language text from the backend-side with a good editor & UI.
 - Cache-able to keep the performance rise.
 
-Supported: Laravel **5.5+**
+Status: **Releasing version 1.0.0**
 
-Status: **Testing - Improving before release first version**
+## Supported Laravel Versions
+| Version | Tested? | Supported? |
+|---------|---------|------------|
+| 6.x     | No      | ![Testing](https://img.shields.io/badge/supported-testing-yellow)           |
+| 5.8     | Yes     | ![Supported](https://img.shields.io/badge/supported-yes-green)        |
+| 5.7     | Yes     | ![Supported](https://img.shields.io/badge/supported-yes-green)        |
+| 5.6     | No      | ![Testing](https://img.shields.io/badge/supported-testing-yellow)           |
+| 5.5     | No      | ![Testing](https://img.shields.io/badge/supported-testing-yellow)           |
+| 5.4     | No      | ![Testing](https://img.shields.io/badge/supported-testing-yellow)           |
 
 ## Ideas
 
@@ -120,4 +131,4 @@ If you really like this project & want to contribute a little for the developmen
 
 <a href="https://www.buymeacoffee.com/xKOM9NB8p" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
 
-Copyright &copy; 2018 by [Seth Phat](https://sethphat.com) aka Phat Tran Minh!
+Copyright &copy; 2019 by [Seth Phat](https://sethphat.com) aka Phat Tran Minh!
