@@ -70,6 +70,6 @@ class Helper
                         ->where('text_bundle_items.key', $key)
                         ->first('lang_texts.lang_text');
 
-        return $data_obj->lang_text;
+        return $data_obj->lang_text ?? null;
     }
 }

@@ -4,11 +4,60 @@
 namespace SethPhat\Multilingual\Tests;
 
 
-class HelperTest extends TestCase
+use SethPhat\Multilingual\Libraries\TextBundleHandler;
+use SethPhat\Multilingual\Models\LangText;
+use SethPhat\Multilingual\Models\TextBundle;
+use SethPhat\Multilingual\Models\TextBundleItem;
+
+class HelperTest extends \Tests\TestCase
 {
+    use \Illuminate\Foundation\Testing\DatabaseTransactions;
+
     public function testInstance() {
         $facadeObj = multilingual();
+        $this->assertInstanceOf(TextBundleHandler::class, $facadeObj);
+    }
 
-//        $this->assertInstanceOf
+    public function testGetTextFailedException() {
+        $this->expectException(\RuntimeException::class);
+        $text = multilingual("not_found", "not_have");
+    }
+
+    public function testGetTextFailedString() {
+        $text = multilingual("not_found", "not_have", [], "en", false);
+        $this->assertStringContainsString("doesn't existed", $text);
+    }
+
+    private function prepareText() {
+        $bundle = TextBundle::create([
+            'name' => 'test_bundle'
+        ]);
+
+        $textId = LangText::saveLangText([
+            'en' => 'Hello Seth Phat',
+            'vi' => 'Xin chào Seth Phát',
+            'fr' => 'Bonjour Seth Phat and :name',
+            'de' => 'Hallo Herr Seth Phat',
+        ]);
+
+        $bundle_item = TextBundleItem::create([
+            'text_id' => $textId,
+            'key' => 'hello',
+            'text_bundle_id' => $bundle->id,
+        ]);
+    }
+
+    public function testGetTextSuccessDefaultLang() {
+        $this->prepareText();
+
+        $text_default = multilingual('hello', 'test_bundle');
+        $this->assertEquals("Hello Seth Phat", $text_default);
+    }
+
+    public function testGetTextSuccessSpecificLang() {
+        $this->prepareText();
+
+        $text_de = multilingual('hello', 'test_bundle', [], "de");
+        $this->assertEquals("Hallo Herr Seth Phat", $text_de);
     }
 }

@@ -36,7 +36,7 @@ class TextBundleHandler
         }
 
         // error handling...
-        if ($lang_text === null && $should_throw) {
+        if ($lang_text === null) {
             $err_mess = "Text Bundle Item {$key} doesn't existed in {$module_name} or you haven't published the bundle yet.";
 
             // return immediately

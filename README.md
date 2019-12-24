@@ -99,6 +99,11 @@ SethPhat\Multilingual\Libraries\Events\TextBundleItemCreated - Will run after a 
 SethPhat\Multilingual\Libraries\Events\TextBundleItemUpdated - Will run after a text bundle item has been updated
 SethPhat\Multilingual\Libraries\Events\TextBundleItemRemoved - Will run after a text bundle item has been deleted
 ```
+## Tests
+Run Unit Test:
+```php
+./vendor/bin/phpunit --bootstrap vendor/autoload.php vendor/sethsandaru/laravel-multilingual/
+```
 
 ## Plans & Milestones
 - **v1.0.0** - Translation for Static Text, including:
