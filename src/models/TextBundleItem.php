@@ -39,7 +39,7 @@ class TextBundleItem extends Model
     }
 
     public function langTexts() {
-        return $this->hasMany(LangText::class, "text_id");
+        return $this->hasMany(LangText::class, "text_id", "text_id");
     }
 
     /***************************************************************************

@@ -99,7 +99,7 @@
                     {
                         data: "urls",
                         render: function (data) {
-                            return render("#action_template", {url: data});
+                            return render("#bundle_action_template", {url: data});
                         },
                     },
                 ],

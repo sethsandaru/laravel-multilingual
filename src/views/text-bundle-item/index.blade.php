@@ -156,7 +156,7 @@
             $(".btn-clear").click(clearFilter);
 
             // delete
-            $("#bundle-table").on('click', '.delete-btn', deleteItem);
+            $("#bundle-item-table").on('click', '.delete-btn', deleteItem);
         });
 
         var CACHE_KEY = "TEXT_BUNDLE_ITEM_CACHE";
