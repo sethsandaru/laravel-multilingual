@@ -81,6 +81,9 @@ This is where you can add/edit/delete the Language Text. By default, you can acc
 http(s)://<your_domain>/settings/multilingual
 ```
 
+Demo image:    
+![Backend Page - Demo - Laravel Multilingual](https://i.imgur.com/FqyH4oD.png)
+
 For the prefix, to change it you need to change it from the configuration file (detail above).
 
 **Security**: You need to make sure that `custom_middleware` in the configuration file `multilingual.php` is set. 

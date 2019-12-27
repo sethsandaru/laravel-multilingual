@@ -60,4 +60,17 @@ class HelperTest extends \Tests\TestCase
         $text_de = multilingual('hello', 'test_bundle', [], "de");
         $this->assertEquals("Hallo Herr Seth Phat", $text_de);
     }
+
+    public function testReplaceTextSuccess() {
+        $this->prepareText();
+        $text_fr = multilingual('hello', 'test_bundle', ['name' => 'Phat Tran'], "fr");
+        $this->assertEquals("Bonjour Seth Phat and Phat Tran", $text_fr);
+    }
+
+    public function testReplaceTextNotSuccessBecauseNoMatchKey() {
+        $this->prepareText();
+        $text_fr = multilingual('hello', 'test_bundle', ['xnise' => 'Phat Tran'], "fr");
+
+        $this->assertStringContainsString(":name", $text_fr);
+    }
 }
