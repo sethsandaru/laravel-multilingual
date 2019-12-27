@@ -48,7 +48,7 @@ class Helper
      */
     public static function replaceText($text, array $replace_data) {
         if (!isset(static::$replacement)) {
-            static::$replacement = new Replacement(null, null);
+            static::$replacement = new Replacement();
         }
 
         return static::$replacement->replace($text, $replace_data);
